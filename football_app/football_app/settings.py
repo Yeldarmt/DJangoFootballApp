@@ -38,6 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'football_app._auth',
+    'football_app.person',
+    'football_app.player',
+    'football_app.statistica',
+    'football_app.goal',
+    'football_app.game',
+    'football_app.referee',
 ]
 
 MIDDLEWARE = [
