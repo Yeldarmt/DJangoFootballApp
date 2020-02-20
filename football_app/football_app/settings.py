@@ -45,6 +45,12 @@ INSTALLED_APPS = [
     'football_app.team',
     'football_app.coach',
     'football_app.person',
+    'football_app.person',
+    'football_app.player',
+    'football_app.statistica',
+    'football_app.goal',
+    'football_app.game',
+    'football_app.referee',
 ]
 
 MIDDLEWARE = [
@@ -108,8 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
 
 
 # Internationalization
