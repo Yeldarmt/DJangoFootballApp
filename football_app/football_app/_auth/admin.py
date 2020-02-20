@@ -1,9 +1,13 @@
 from django.contrib import admin
-from football_app._auth.models import MyUser
 
-# Register your models here.
+from django.contrib.auth.admin import UserAdmin
+
+from football_app._auth.models import MyUser
 
 
 @admin.register(MyUser)
-class MyUserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'username', 'email')
+class MyUserAdmin(UserAdmin):
+    list_display = ('id', 'username', 'first_name', 'last_name', 'address')
+    fieldsets = (
+        (None, {'fields': ('username', 'password')}),
+    )
