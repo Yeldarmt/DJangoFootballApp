@@ -12,6 +12,14 @@
   Field favourite mathces save mathces in similar way. You will be able to get access quickly.
   In project was used JWT token for authentication. We use rest_framework for CRUD operation.
   
+  Features:
+  Top Football Leagues
+  League detail (teams, stats, matches, logo, date)
+  Team detail (plalyer, matches,wins, losts, coach, logo, position, short code, country)
+  Choose date and follow matches on that date
+  Ability to choose your favorite competitions and teams and follow them
+ 
+  Authors: ( https://github.com/Yeldarmt , https://github.com/maymashd )
   ![](football_app/photos/FootballApp.png)
  
 
