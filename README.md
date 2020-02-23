@@ -11,5 +11,7 @@
   In fact that every football fan has a favourite team. In app they can choose team and see all matches and news releted with this team.
   Field favourite mathces save mathces in similar way. You will be able to get access quickly.
   In project was used JWT token for authentication. We use rest_framework for CRUD operation.
+  
+  ![](football_app/photos/FootballApp.png)
  
 
