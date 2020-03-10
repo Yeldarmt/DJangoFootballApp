@@ -5,9 +5,9 @@ from football_app.league.models import League
 from football_app.country.models import Country
 
 class Team(models.Model):
-    name=models.CharField(max_length=100,)
+    name=models.CharField(max_length=100)
     position=models.IntegerField(default=0)
-    logo= models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100,blank=True)
+    logo= models.ImageField(default='https://images.alphacoders.com/105/1056501.jpg',upload_to='photos/')
     wins = models.IntegerField(default=0,blank=True)
     draws = models.IntegerField(default=0,blank=True)
     losts = models.IntegerField(default=0,blank=True)
@@ -19,25 +19,6 @@ class Team(models.Model):
     league=models.ForeignKey(League,on_delete=models.CASCADE,blank=True,default=None)
     country=models.ForeignKey(Country,on_delete=models.CASCADE,default=None)
 
-
-    def to_json(self):
-        return {
-
-            'name': self.name,
-            'position': self.position,
-            'logo': self.logo,
-            'wins': self.wins,
-            'draws': self.draws,
-            'losts': self.losts,
-            'point': self.point,
-            'last_5': self.lasts_5,
-            'coach': self.coach,
-            'goal_difference': self.goal_difference,
-            'short_code': self.short_code,
-            'league': self.league,
-            'country': self.country
-
-        }
 
     def __str__(self):
         return '{}'.format(self.name)

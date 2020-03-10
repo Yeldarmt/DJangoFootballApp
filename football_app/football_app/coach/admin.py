@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from football_app.coach.models import Coach
+
+admin.site.register(Coach)

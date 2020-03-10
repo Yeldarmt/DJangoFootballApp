@@ -1,11 +1,10 @@
-from django.contrib import admin
-from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from football_app.league.views import LeagueListView
+from football_app.team.views import TeamListView
 
 router = DefaultRouter()
-router.register(r'', LeagueListView)
+router.register(r'', TeamListView)
 
 urlpatterns = [
 
