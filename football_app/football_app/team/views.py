@@ -1,3 +1,4 @@
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework import viewsets
 from rest_framework import mixins
@@ -27,3 +28,20 @@ class TeamListView(mixins.ListModelMixin,
             return TeamFullSerializer
         else:
             return TeamShortSerializer
+
+    @action(methods=['GET'], detail=False)
+    def top(self, request):
+        self.queryset = Team.objects.top_three()
+        return self.list(request)
+
+
+    @action(methods=['GET'], detail=False)
+    def top_wins(self, request):
+        self.queryset = Team.manager2.top_wins()
+        return self.list(request)
+
+
+    @action(methods=['GET'], detail=False)
+    def top_losts(self, request):
+        self.queryset = Team.manager3.top_losts()
+        return self.list(request)
