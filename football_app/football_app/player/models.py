@@ -1,6 +1,7 @@
 from django.db import models
 from football_app.person.models import Person
 from football_app.statistica.models import Statistica
+from football_app.team.models import Team
 
 
 # Create your models here.
@@ -20,6 +21,7 @@ class Player(Person):
         ('RW', 'Right winger'),
         ('FC', 'Centre Forward'),
     )
+    nick_name = models.CharField(max_length=200)
     age = models.IntegerField()
     date_of_birth = models.DateField()
     photo = models.ImageField(
@@ -31,7 +33,8 @@ class Player(Person):
     number = models.IntegerField()
     salary = models.IntegerField()
     isReserved = models.BooleanField(default=False)
-    statistica = models.OneToOneField(Statistica, on_delete=models.CASCADE)
+    statistica = models.OneToOneField(Statistica, on_delete=models.CASCADE, related_name='statistics')
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='team')
 
     class Meta:
         verbose_name = 'Player'

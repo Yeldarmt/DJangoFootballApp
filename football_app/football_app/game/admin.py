@@ -6,4 +6,4 @@ from football_app.game.models import Game
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
-    list_display = ('id', 'game_date', 'goals', 'referee', )
+    list_display = ('id', 'first_team', 'second_team', 'game_date', 'referee', )
