@@ -10,13 +10,14 @@ logger=logging.getLogger('validation')
 
 class UserShortSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
-    favouriteTeam_id=serializers.IntegerField(write_only=True)
-    password=serializers.CharField(write_only=True)
-    is_staff=serializers.BooleanField(read_only=True)
+    favouriteTeam_id = serializers.IntegerField(write_only=True)
+    password = serializers.CharField(write_only=True)
+    is_staff = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = MyUser
-        fields = ('id', 'username', 'first_name','last_name','address','favouriteTeam_id','birth_date','password','is_staff', )
+        fields = ('id', 'username', 'first_name', 'last_name', 'address', 'favouriteTeam_id', 'birth_date', 'password',
+                  'is_staff',)
 
     def validate_favouriteTeam_id(self, val):
         if val<0:
@@ -26,7 +27,6 @@ class UserShortSerializer(serializers.ModelSerializer):
 
     def validate_first_name(self,value):
         if value[0]<'A' or value[0]>'Z':
-            logger.error(f'User firstName validation is not correct: {value}')
             raise serializers.ValidationError('The name should with upper case letter!!!')
         return value
 
@@ -61,11 +61,10 @@ class UserFullSerializer(UserShortSerializer):
 
     class Meta:
         model = MyUser
-        fields =UserShortSerializer.Meta.fields+('favouriteTeam',)
+        fields = UserShortSerializer.Meta.fields + ('favouriteTeam',)
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = MyUser
         fields = ('is_staff',)

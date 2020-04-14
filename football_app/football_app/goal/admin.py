@@ -6,4 +6,4 @@ from football_app.goal.models import Goal
 
 @admin.register(Goal)
 class GoalAdmin(admin.ModelAdmin):
-    list_display = ('id', 'recordTime', 'goalPlayer', 'assistPlayer')
+    list_display = ('id', 'game', 'recordTime', 'goalPlayer', 'assistPlayer')
