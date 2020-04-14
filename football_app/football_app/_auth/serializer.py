@@ -5,7 +5,8 @@ from rest_framework import serializers
 
 from football_app.team.serializers import TeamShortSerializer
 from .models import  MyUser
-
+import logging
+logger=logging.getLogger('validation')
 
 class UserShortSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
@@ -19,16 +20,19 @@ class UserShortSerializer(serializers.ModelSerializer):
 
     def validate_favouriteTeam_id(self, val):
         if val<0:
+            logger.error(f'User favourite team validation is not correct: {val}')
             raise serializers.ValidationError('The foreign key id can not be negative!!!')
         return val
 
     def validate_first_name(self,value):
         if value[0]<'A' or value[0]>'Z':
+            logger.error(f'User firstName validation is not correct: {value}')
             raise serializers.ValidationError('The name should with upper case letter!!!')
         return value
 
     def validate_last_name(self,value):
         if value[0]<'A' or value[0]>'Z':
+            logger.error(f'User lastName validation is not correct: {value}')
             raise serializers.ValidationError('The lastname should with upper case letter!!!')
         return value
 

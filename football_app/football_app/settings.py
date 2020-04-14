@@ -182,3 +182,36 @@ JWT_AUTH = {
     'JWT_AUTH_COOKIE': None,
 
 }
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'full': {
+            'format': '%(levelname)s -- %(asctime)s: %(message)s',
+        },
+        'simple': {
+            'format': '%(levelname)s -- %(message)s'
+        }
+    },
+    'handlers': {
+        'file_handler': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'Validation ERROR LOGGING',
+            'formatter': 'full'
+        },
+        'console_handler': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        }
+    },
+    'loggers': {
+        'validation': {
+            'handlers': ['file_handler', 'console_handler'],
+            'level': 'DEBUG',
+        },
+    },
+}
