@@ -10,7 +10,8 @@ class Referee(Person):
 
     class Meta:
         verbose_name: 'Referee'
-        verbose_name_plural: 'Referees'
+        verbose_name_plural: 'Refereessa'
 
     def __str__(self):
         return '{} {}'.format(self.name, self.surname)
+

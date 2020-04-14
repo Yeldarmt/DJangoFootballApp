@@ -2,8 +2,7 @@ from django.contrib import admin
 from football_app.game.models import Game
 
 # Register your models here.
-# Player Goal Person Referee statistics
-# Game
+
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
