@@ -19,11 +19,14 @@ from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/',obtain_jwt_token),
-    path('countries/',include('football_app.country.urls')),
+    path('login/', obtain_jwt_token),
+    path('countries/', include('football_app.country.urls')),
     path('leagues/', include('football_app.league.urls')),
     path('teams/', include('football_app.team.urls')),
-    path('coaches/',include('football_app.coach.urls')),
+    path('coaches/', include('football_app.coach.urls')),
     path('', include('football_app._auth.urls')),
-
+    path('players/', include('football_app.player.urls')),
+    path('referees/', include('football_app.referee.urls')),
+    path('statistics/', include('football_app.statistica.urls')),
+    path('games/', include('football_app.game.urls')),
 ]

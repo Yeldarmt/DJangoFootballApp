@@ -6,4 +6,4 @@ from football_app.statistica.models import Statistica
 
 @admin.register(Statistica)
 class StatisticAdmin(admin.ModelAdmin):
-    list_display = ('goals', 'assists', 'played_games')
+    list_display = ('id', 'goals', 'assists', 'played_games')

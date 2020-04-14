@@ -5,4 +5,4 @@ from football_app.referee.models import Referee
 
 @admin.register(Referee)
 class RefereeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'surname', )
+    list_display = ('id', 'name', 'surname', 'level')
