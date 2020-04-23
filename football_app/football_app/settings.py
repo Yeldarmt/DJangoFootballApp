@@ -190,6 +190,9 @@ LOGGING = {
         'verbose': {
             'format': '%(levelname)s -- %(asctime)s: %(message)s',
         },
+        'full': {
+            'format': '%(levelname)s -- %(asctime)s: %(message)s',
+        },
         'simple': {
             'format': '%(levelname)s -- %(message)s'
         }
@@ -213,6 +216,10 @@ LOGGING = {
             'level': 'DEBUG',
         },
         'game': {
+            'handlers': ['file_handler', 'console_handler'],
+            'level': 'DEBUG',
+        },
+'validation': {
             'handlers': ['file_handler', 'console_handler'],
             'level': 'DEBUG',
         },

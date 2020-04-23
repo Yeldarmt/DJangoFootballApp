@@ -4,8 +4,9 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from football_app.team.serializers import TeamShortSerializer
-from .models import MyUser
-
+from .models import  MyUser
+import logging
+logger=logging.getLogger('validation')
 
 class UserShortSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
@@ -19,31 +20,40 @@ class UserShortSerializer(serializers.ModelSerializer):
                   'is_staff',)
 
     def validate_favouriteTeam_id(self, val):
-        if val < 0:
+        if val<0:
+            logger.error(f'User favourite team validation is not correct: {val}')
             raise serializers.ValidationError('The foreign key id can not be negative!!!')
         return val
 
-    def validate_first_name(self, value):
-        if value[0] < 'A' or value[0] > 'Z':
+    def validate_first_name(self,value):
+        if value[0]<'A' or value[0]>'Z':
             raise serializers.ValidationError('The name should with upper case letter!!!')
         return value
 
-    def validate_last_name(self, value):
-        if value[0] < 'A' or value[0] > 'Z':
+    def validate_last_name(self,value):
+        if value[0]<'A' or value[0]>'Z':
+            logger.error(f'User lastName validation is not correct: {value}')
             raise serializers.ValidationError('The lastname should with upper case letter!!!')
         return value
 
+
+
     def create(self, validated_data):
         user = MyUser.objects.create_user(username=validated_data['username'],
-                                          first_name=validated_data.get('first_name', ''),
-                                          last_name=validated_data.get('last_name', ''),
-                                          address=validated_data.get('address', ''),
-                                          favouriteTeam_id=validated_data.get('favouriteTeam_id', 0),
+                                          first_name=validated_data.get('first_name',''),
+                                          last_name=validated_data.get('last_name',''),
+                                          address=validated_data.get('address',''),
+                                          favouriteTeam_id=validated_data.get('favouriteTeam_id',0),
                                           birth_date=validated_data.get('birth_date', "1999-07-04"))
         print(validated_data)
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+
+
+
 
 
 class UserFullSerializer(UserShortSerializer):
