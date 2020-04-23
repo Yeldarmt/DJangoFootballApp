@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from football_app.game.models import Game
-from football_app.game.serializers import GameSerializer, GameSerializer2
+from football_app.game.serializers import GameSerializer, GameSerializer2, GameEndSerializer
 from rest_framework import status
 from football_app.goal.serializers import GoalSerializer
 
@@ -56,3 +56,16 @@ def game_goals(request, num):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['PUT'])
+def game_end(request, num):
+    try:
+        game = Game.objects.get(id=num)
+    except Game.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'PUT':
+        serializer = GameEndSerializer(instance=game, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)

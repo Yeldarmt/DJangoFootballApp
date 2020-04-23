@@ -5,6 +5,7 @@ from football_app.player.models import Player
 
 
 class PlayerShortSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
     name = serializers.CharField()
     surname = serializers.CharField()
     position = serializers.CharField()
@@ -25,6 +26,7 @@ class PlayerShortSerializer(serializers.Serializer):
 
 
 class PlayerSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
     name = serializers.CharField()
     surname = serializers.CharField()
     nationality = serializers.CharField()

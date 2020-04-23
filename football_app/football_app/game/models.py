@@ -3,6 +3,21 @@ from football_app.referee.models import Referee
 from football_app.team.models import Team
 
 
+class GamesManager(models.Manager):
+    def get_queryset(self):
+        return super(GamesManager, self).get_queryset().all()
+
+
+class ActiveGamesManager(models.Manager):
+    def get_queryset(self):
+        return super(ActiveGamesManager, self).get_queryset().filter(isActiveGame=True)
+
+
+class NotActiveGamesManager(models.Manager):
+    def get_queryset(self):
+        return super(NotActiveGamesManager, self).get_queryset().filter(isActiveGame=False)
+
+
 class Game(models.Model):
     game_date = models.DateTimeField()
     score_team_one = models.IntegerField(default=0)
@@ -12,6 +27,9 @@ class Game(models.Model):
     first_team = models.ForeignKey(Team, on_delete=models.CASCADE, default=None, related_name='first_team')
     second_team = models.ForeignKey(Team, on_delete=models.CASCADE, default=None, related_name='second_team')
     referee = models.ForeignKey(Referee, on_delete=models.CASCADE)
+    objects = GamesManager()
+    active_games = ActiveGamesManager()
+    not_active_games = NotActiveGamesManager()
 
     class Meta:
         verbose_name: 'Game'

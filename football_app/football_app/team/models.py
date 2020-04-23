@@ -24,7 +24,6 @@ class Team(models.Model):
     name = models.CharField(max_length=100)
     position = models.IntegerField(default=0)
     logo = models.ImageField(default='https://images.alphacoders.com/105/1056501.jpg', upload_to='photos/')
-    nick_name = models.CharField(max_length=200, default='')
     wins = models.IntegerField(default=0, blank=True)
     draws = models.IntegerField(default=0, blank=True)
     losts = models.IntegerField(default=0, blank=True)
