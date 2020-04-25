@@ -13,3 +13,7 @@ class MyUser(AbstractUser):
 
     def __str__(self):
         return 'username: {}, Full name: {}'.format(self.username, self.get_full_name())
+
+class Notification(models.Model):
+    user=models.ForeignKey(MyUser,on_delete=models.CASCADE,related_name="notifications")
+    game=models.ForeignKey(Game,on_delete=models.CASCADE,related_name="subscribers")
