@@ -7,12 +7,14 @@ from football_app.team.models import Team
 
 class MyUser(AbstractUser):
     address = models.CharField(max_length=50, default='')
-    favouriteTeam = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True, default=None)
+    favouriteTeam = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True,related_name="subscribers")
     favouriteMatches = models.ForeignKey(Game, on_delete=models.CASCADE, blank=True, null=True)
     birth_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return 'username: {}, Full name: {}'.format(self.username, self.get_full_name())
+
+
 
 class Notification(models.Model):
     user=models.ForeignKey(MyUser,on_delete=models.CASCADE,related_name="notifications")
