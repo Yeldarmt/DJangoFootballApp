@@ -10,7 +10,8 @@ class PlayerShortSerializer(serializers.Serializer):
     surname = serializers.CharField()
     position = serializers.CharField()
     number = serializers.IntegerField()
-    team = TeamShortSerializer()
+    team_name = serializers.CharField(source='team.name', read_only=True)
+    # team = TeamShortSerializer()
 
     def create(self, validated_data):
         player = Player(**validated_data)

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_jwt',
+    'debug_toolbar',
     'football_app._auth',
     'football_app.country',
     'football_app.league',
@@ -60,7 +61,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+INTERNAL_IPS = ['127.0.0.1']
 
 ROOT_URLCONF = 'football_app.urls'
 
@@ -219,7 +223,7 @@ LOGGING = {
             'handlers': ['file_handler', 'console_handler'],
             'level': 'DEBUG',
         },
-'validation': {
+        'validation': {
             'handlers': ['file_handler', 'console_handler'],
             'level': 'DEBUG',
         },

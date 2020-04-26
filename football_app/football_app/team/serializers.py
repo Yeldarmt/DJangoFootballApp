@@ -40,7 +40,8 @@ class TeamShortSerializer(serializers.ModelSerializer):
 class TeamFullSerializer(TeamShortSerializer):
     league=LeagueShortSerializer(read_only=True)
     country=CountrySerializer(read_only=True)
+    players_count = serializers.IntegerField(read_only=True, default=0)
     class Meta:
         model = Team
-        fields = TeamShortSerializer.Meta.fields+('league','country',)
+        fields = TeamShortSerializer.Meta.fields+('league', 'country', 'players_count')
 

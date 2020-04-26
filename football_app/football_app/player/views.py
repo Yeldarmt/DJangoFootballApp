@@ -13,7 +13,14 @@ class PlayerListViewSet(viewsets.GenericViewSet,
                         mixins.RetrieveModelMixin,
                         mixins.UpdateModelMixin,
                         mixins.DestroyModelMixin):
-    queryset = Player.objects.all()
+    def get_queryset(self):
+        if self.action == 'list':
+            queryset = Player.objects.select_related('team')
+        else:
+            queryset = Player.objects.all()
+        return queryset
+    permission_classes = ()
+
     def get_serializer_class(self):
         print('playerSelfAction: ', self.action)
         if self.action == 'list':

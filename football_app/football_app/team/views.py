@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from rest_framework import mixins
 from football_app.team.models import Team
 from football_app.team.serializers import TeamShortSerializer, TeamFullSerializer
+from django.db.models import Count
 
 
 class TeamListView(mixins.ListModelMixin,
@@ -13,7 +14,13 @@ class TeamListView(mixins.ListModelMixin,
                    mixins.DestroyModelMixin,
                    mixins.RetrieveModelMixin):
     permission_classes = [IsAuthenticated, ]
-    queryset = Team.objects.all()
+
+    def get_queryset(self):
+        if self.action == 'retrieve':
+            queryset = Team.objects.annotate(players_count=Count('players'))
+        else:
+            queryset = Team.objects.all()
+        return queryset
 
     def get_permissions(self):
         permission_classes = []
