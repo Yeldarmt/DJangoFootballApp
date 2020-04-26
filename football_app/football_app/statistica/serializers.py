@@ -9,6 +9,8 @@ class StatisticsSerializer(serializers.Serializer):
     red_card = serializers.IntegerField()
     yellow_card = serializers.IntegerField()
     played_games = serializers.IntegerField()
+    player_name = serializers.CharField(source='statistics.name', read_only=True)
+    player_surname = serializers.CharField(source='statistics.surname', read_only=True)
 
     def create(self, validated_data):
         statistic = Statistica(**validated_data)

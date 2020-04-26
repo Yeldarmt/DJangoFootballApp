@@ -7,54 +7,48 @@ from football_app.game.serializers import GameSerializer
 from football_app.team.serializers import TeamShortSerializer
 from .models import MyUser, Notification
 import logging
-logger=logging.getLogger('validation')
+
+logger = logging.getLogger('validation')
+
 
 class UserShortSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
-    favouriteTeam_id = serializers.IntegerField(write_only=True)
+    # favouriteTeam_id = serializers.IntegerField(write_only=True, required=False)
     password = serializers.CharField(write_only=True)
     is_staff = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = MyUser
-        fields = ('id', 'username', 'first_name', 'last_name', 'address', 'favouriteTeam_id', 'birth_date', 'password',
+        fields = ('id', 'username', 'first_name', 'last_name', 'address', 'birth_date', 'password',
                   'is_staff',)
 
     def validate_favouriteTeam_id(self, val):
-        if val<0:
+        if val < 0:
             logger.error(f'User favourite team validation is not correct: {val}')
             raise serializers.ValidationError('The foreign key id can not be negative!!!')
         return val
 
-    def validate_first_name(self,value):
-        if value[0]<'A' or value[0]>'Z':
+    def validate_first_name(self, value):
+        if value[0] < 'A' or value[0] > 'Z':
             raise serializers.ValidationError('The name should with upper case letter!!!')
         return value
 
-    def validate_last_name(self,value):
-        if value[0]<'A' or value[0]>'Z':
+    def validate_last_name(self, value):
+        if value[0] < 'A' or value[0] > 'Z':
             logger.error(f'User lastName validation is not correct: {value}')
             raise serializers.ValidationError('The lastname should with upper case letter!!!')
         return value
 
-
-
     def create(self, validated_data):
         user = MyUser.objects.create_user(username=validated_data['username'],
-                                          first_name=validated_data.get('first_name',''),
-                                          last_name=validated_data.get('last_name',''),
-                                          address=validated_data.get('address',''),
-                                          favouriteTeam_id=validated_data.get('favouriteTeam_id',0),
+                                          first_name=validated_data.get('first_name', ''),
+                                          last_name=validated_data.get('last_name', ''),
+                                          address=validated_data.get('address', ''),
                                           birth_date=validated_data.get('birth_date', "1999-07-04"))
         print(validated_data)
         user.set_password(validated_data['password'])
         user.save()
         return user
-
-
-
-
-
 
 
 class UserFullSerializer(UserShortSerializer):
@@ -72,8 +66,8 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
 
 class NotificationSerializer(serializers.ModelSerializer):
+    game = GameSerializer()
 
-    game=GameSerializer()
     class Meta:
-        model=Notification
-        fields=('game',)
+        model = Notification
+        fields = ('game',)

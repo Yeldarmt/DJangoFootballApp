@@ -10,10 +10,11 @@ class LeagueShortSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(required=True)
     country_id = serializers.IntegerField(write_only=True)
+    country = serializers.CharField(source='country.name', read_only=True)
 
     class Meta:
         model = League
-        fields = ('id', 'name', 'season', 'logo', 'country_id',)
+        fields = ('id', 'name', 'season', 'logo', 'country_id', 'country')
 
 
 class LeagueFullSerializer(LeagueShortSerializer):
