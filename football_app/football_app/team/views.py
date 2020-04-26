@@ -2,6 +2,8 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework import viewsets
 from rest_framework import mixins
+from rest_framework.response import Response
+
 from football_app.team.models import Team
 from football_app.team.serializers import TeamShortSerializer, TeamFullSerializer
 from django.db.models import Count
@@ -50,3 +52,23 @@ class TeamListView(mixins.ListModelMixin,
     def top_losts(self, request):
         self.queryset = Team.manager3.top_losts()
         return self.list(request)
+
+    @action(methods=['POST'], detail=True)
+    def subscribe(self, request, pk):
+        team = Team.objects.get(id=pk)
+        user = request.user
+        user.favouriteTeam = team
+        user.save()
+
+        return Response("You subscribed successfully")
+
+    @action(methods=['POST'], detail=True)
+    def unsubscribe(self, request, pk):
+        team = Team.objects.get(id=pk)
+        user = request.user
+        user.favouriteTeam = team
+        user.save()
+
+        return Response("You unsubscribed successfully")
+
+

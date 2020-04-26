@@ -3,8 +3,9 @@ import datetime
 from django.utils import timezone
 from rest_framework import serializers
 
+from football_app.game.serializers import GameSerializer
 from football_app.team.serializers import TeamShortSerializer
-from .models import  MyUser
+from .models import MyUser, Notification
 import logging
 logger=logging.getLogger('validation')
 
@@ -68,3 +69,11 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUser
         fields = ('is_staff',)
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+
+    game=GameSerializer()
+    class Meta:
+        model=Notification
+        fields=('game',)
